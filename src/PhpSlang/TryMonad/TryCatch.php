@@ -7,6 +7,9 @@ use Throwable;
 
 /**
  * Companion class for Try monad. Name in progress...
+ *
+ * @author Szymon A. Łągiewka <phpslang@lagiewka.pl>
+ *
  */
 class TryCatch
 {

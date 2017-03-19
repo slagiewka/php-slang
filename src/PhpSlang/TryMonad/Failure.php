@@ -10,9 +10,7 @@ use PhpSlang\Option\Option;
 use Throwable;
 
 /**
- * Class Failure
- *
- * @package PhpSlang\TryMonad
+ * @author Szymon A. Łągiewka <phpslang@lagiewka.pl>
  */
 final class Failure implements TryInterface
 {

@@ -9,6 +9,9 @@ use PhpSlang\Option\Option;
 use PhpSlang\Option\Some;
 use Throwable;
 
+/**
+ * @author Szymon A. Łągiewka <phpslang@lagiewka.pl>
+ */
 final class Success implements TryInterface
 {
     /** @var mixed */
@@ -68,8 +71,8 @@ final class Success implements TryInterface
     public function filter(Closure $closure): TryInterface
     {
         return $closure($this->result)
-            ? new Success($this->result)
-            : new Failure(new NoMatchFoundException(sprintf('No match found for %s', $this->result)))
+            ? $this
+            : new Failure(new NoMatchFoundException())
         ;
     }
 
