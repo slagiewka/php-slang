@@ -4,10 +4,12 @@ namespace PhpSlang\TryMonad;
 
 use Closure;
 use PhpSlang\Exception\NoMatchFoundException;
+use PhpSlang\Exception\NoNestedElementException;
 use PhpSlang\Match\When\AbstractWhen;
 use PhpSlang\Option\Option;
 use PhpSlang\Option\Some;
 use Throwable;
+use TypeError;
 
 /**
  * @author Szymon A. Łągiewka <phpslang@lagiewka.pl>
@@ -97,7 +99,11 @@ final class Success implements TryInterface
      */
     public function flatten(): TryInterface
     {
-        return $this->flatMap(function ($data) {
+        if (!($this->result instanceof TryInterface)) {
+            throw new NoNestedElementException();
+        }
+
+        return $this->flatMap(function ($data): TryInterface {
             return $data;
         });
     }
@@ -116,10 +122,16 @@ final class Success implements TryInterface
     public function flatMap(Closure $closure): TryInterface
     {
         try {
-            return $closure($this->result);
+            $result = $closure($this->result);
         } catch (Throwable $throwable) {
-            return new Failure($throwable);
+            $result = new Failure($throwable);
         }
+
+        if (!($result instanceof TryInterface)) {
+            throw new TypeError('flatMap expression needs to return a TryInterface result');
+        }
+
+        return $result;
     }
 
     /**

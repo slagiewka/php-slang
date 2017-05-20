@@ -37,6 +37,7 @@
     "humbug/humbug": "~1.0@dev"
   },
   "autoload": {
+    "files": ["src/PhpSlang/Util/functions_include.php"],
     "psr-0": {
       "PhpSlang\\": "src/"
     }

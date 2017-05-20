@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace PhpSlang\TryMonad;
 
 use Closure;
+use function PhpSlang\TryMonad\TryMonad\tryCall as baseTryCall;
 use Throwable;
 
 /**
@@ -11,20 +12,20 @@ use Throwable;
  * @author Szymon A. Łągiewka <phpslang@lagiewka.pl>
  *
  */
-class TryCatch
+class TryMonad
 {
     /**
      * Tries executing given Closure and returns Success on success
      * or Failure when an exceptions is thrown inside Closure.
      *
-     * @param Closure $closure
+     * @param Closure $expression
      *
      * @return TryInterface
      */
-    public static function tryCatch(Closure $closure): TryInterface
+    public static function tryM(Closure $expression): TryInterface
     {
         try {
-            return new Success($closure());
+            return new Success($expression());
         } catch (Throwable $throwable) {
             return new Failure($throwable);
         }

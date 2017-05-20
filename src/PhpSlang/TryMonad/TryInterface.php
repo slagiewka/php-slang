@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace PhpSlang\TryMonad;
 
 use Closure;
+use PhpSlang\Exception\NoNestedElementException;
 use PhpSlang\Match\When\AbstractWhen;
 use PhpSlang\Option\Option;
 
